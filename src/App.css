@@ -13,6 +13,11 @@
     margin: 1%;
 }
 
+hr {
+    width: 1px;
+    height: 100vh;
+}
+
 .large-img-container {
     width: 40%;
 }

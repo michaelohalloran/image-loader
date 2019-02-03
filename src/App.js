@@ -44,6 +44,7 @@ class App extends Component {
   }
 
   setSelectedImg = (img) => {
+    // img.url = img.url.slice(0,-7) + '480x480';
     this.setState({selectedImg: img});
   }
 
@@ -75,6 +76,28 @@ class App extends Component {
     this.setState({[e.target.name]: e.target.value})
   }
 
+  onDragOver(e) {
+    console.log('dragging evt: ', e);
+  }
+
+  onDrop(e) {
+    console.log('drop evt: ', e);
+  }
+
+  moveText = () => {
+    console.log('moveText');
+    //get text div by className, apply CSS positioning styles (e.g., increment absolute top position by x pixels for each btn click)
+    
+  }
+
+  handleUpload = (e) => {
+    console.log(e.target.files[0]);
+  }
+
+  onUpload = () => {
+    console.log('hit upload');
+  }
+
   render() {
 
     const {imgs, selectedImg} = this.state;
@@ -104,23 +127,58 @@ class App extends Component {
 
     return (
       <div className="container">
+
+        <nav>
+          <ul>
+            <li>Flyer Creator</li>
+            <li>Dbat</li>
+            <li>Hello Matt</li>
+          </ul>
+        </nav>
         <div className="flex-img-container">
           {display}
         </div>
 
+        <hr />
+
         <div className="large-img-container">
-          Large image here<br/>
+          
+          <div className="img-text-container">
+            <img src={singleUrl} alt="text"/>
+            <div draggable className="overlay-text">{this.state.text}</div>
+            
+            <div 
+              onDragOver={(e)=>this.onDragOver(e)}
+              onDrop={(e)=> this.onDrop(e)}
+            >
+              Drop here
+            </div>
+            <button onClick={this.moveText}>Move text up</button>
+          </div>
+
+          {/* wrap in form */}
+
+          <label>Type your text</label><br/>
           <input 
             name="text"
             onChange={this.onInputChange}
             value={this.state.text}
           />
+          <button>Done</button>
           <h3>You are typing: {this.state.text}</h3>
-          <div className="img-text-container">
-            <img src={singleUrl} alt="text"/>
-            <div className="overlay-text">{this.state.text}</div>
+
+          <label>Upload images</label><br/>
+          <input type="file" onChange={this.handleUpload}/>
+          <button onClick={this.onUpload}>Upload</button>
+
+          <div className="footer-btn-container">
+            <button>Cancel</button>
+            <button>Print</button>
+            <button>Save</button>
           </div>
         </div>
+
+
       </div>
     );
   }
