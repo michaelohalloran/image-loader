@@ -10,7 +10,8 @@ class App extends Component {
     this.state = {
       imgs: [],
       text: '',
-      selectedImg: null
+      selectedImg: null,
+      draggedText: ''
     }
   }
   
@@ -18,7 +19,7 @@ class App extends Component {
   //collection ids: https://unsplash.com/collections
   loadImages = () => {
     // axios.get('https://source.unsplash.com/collection/1163637/480x480')
-    let imgs = Array(15).fill(0).map(el => {
+    let imgs = Array(9).fill(0).map(el => {
       el = {id: Math.random().toFixed(3), url: 'https://source.unsplash.com/collection/1163637/200x200', selected: false};
       return el;
     });
@@ -76,12 +77,26 @@ class App extends Component {
     this.setState({[e.target.name]: e.target.value})
   }
 
-  onDragOver(e) {
-    console.log('dragging evt: ', e);
+  // https://medium.com/the-andela-way/react-drag-and-drop-7411d14894b9
+
+  onDrag = (e, text) => {
+    e.preventDefault();
+    this.setState({draggedText: text});
   }
 
-  onDrop(e) {
+  onDragStart = (e)=> {
+    console.log('dragSTart evt: ', e);
+  }
+
+  onDragOver = (e)=> {
+    console.log('dragging evt: ', e);
+    e.dataTransfer.setData('data', this.state.text);
+  }
+
+  onDrop = (e) => {
+    e.preventDefault();
     console.log('drop evt: ', e);
+    let text = e.dataTransfer.getData('data');
   }
 
   moveText = () => {
@@ -128,8 +143,8 @@ class App extends Component {
     return (
       <div className="container">
 
-        <nav>
-          <ul>
+        <nav className="nav">
+          <ul className="links">
             <li>Flyer Creator</li>
             <li>Dbat</li>
             <li>Hello Matt</li>
@@ -145,13 +160,22 @@ class App extends Component {
           
           <div className="img-text-container">
             <img src={singleUrl} alt="text"/>
-            <div draggable className="overlay-text">{this.state.text}</div>
+            <div 
+              draggable 
+              className="overlay-text"
+              onDrag={(e)=>this.onDrag(e, this.state.text)} 
+              onDragStart={(e)=> this.onDragStart(e)}
+              onDragEnd={(e) => console.log('end evt: ', e)}
+            >
+              {this.state.text}
+            </div>
             
             <div 
               onDragOver={(e)=>this.onDragOver(e)}
               onDrop={(e)=> this.onDrop(e)}
+              style={{backgroundColor: 'red'}}
             >
-              Drop here
+              {this.state.draggedText ? (<span className="dragged">this.state.draggedText</span>) : 'Drop here'}
             </div>
             <button onClick={this.moveText}>Move text up</button>
           </div>
