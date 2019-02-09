@@ -1,19 +1,48 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 .container {
     display: grid;
     grid-template-columns: repeat(6,1fr);
     grid-template-rows: repeat(9,1fr);
 }
 
-.nav {
-    grid-column: 1/7;
-    grid-row: 1/2;
-    background: lightblue;
-}
+/* *************************************** */
+/* NAVBAR */
+/* *************************************** */
 
 .links {
+    grid-column: 1/7;
+    grid-row: 1/2;
+    background-color: #2170ef;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    list-style: none;
+    color: white;
+    font-size: 1.1rem;
+    margin: 0;
+    padding: 0; /*eliminate extra left space */
 }
+
+/* https://repl.it/@mike314151/Links-navbar-grid?language=html&folderId= */
+
+.links > li:nth-child(1) {margin-right: auto;}
+
+.links > li {margin: 1%;}
+
+.nav-hr {
+    width: 1%;
+    color: gray;
+    height: 100%;
+}
+
+/* *************************************** */
+/* LEFT SIDE */
+/* *************************************** */
 
 .flex-img-container {
     display: flex;
@@ -35,11 +64,19 @@
     height: 100vh;
 } */
 
+/* *************************************** */
+/* RIGHT SIDE */
+/* *************************************** */
+
 .large-img-container {
     /* width: 40%; */
     grid-column: 4/7;
     background: lightgoldenrodyellow;
     grid-row: 2/10;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 
 }
 
@@ -56,6 +93,55 @@
     /* transform: translate(-50%, -50%); */
 }
 
+label {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
 .dragged {
     background: blue;
+}
+
+.blue-btn {
+    background-color: #2170ef;
+    color: white;
+    font-weight: bold;
+    border-radius: 3.5em;
+    padding: 1%;
+    margin: 1%;
+    border: none;
+    width: 15%;
+}
+
+.blue-btn:hover {
+    color: #2170ef;
+    background-color: white;
+    cursor: pointer;
+}
+
+.footer-btn-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.footer-btn-container > button:nth-child(1) {
+    margin-right: auto;
+}
+
+.print-btn {
+    background-color: rgb(31, 151, 71);
+    color: white;
+    font-weight: bold;
+    border-radius: 3.5em;
+    padding: 1%;
+    margin: 1%;
+    border: none;
+    width: 15%;
+}
+
+.print-btn:hover {
+    color: rgb(31, 151, 71);
+    background-color: white;
+    cursor: pointer;
 }

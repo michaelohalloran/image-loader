@@ -119,7 +119,14 @@ class App extends Component {
     console.log('imgs: ', this.state.imgs);
 
 
-    const singleUrl = (selectedImg) ? selectedImg.url : 'nothing';
+    const largeImg = (selectedImg) ? 
+      <img 
+        onDragOver={(e)=>this.onDragOver(e)}
+        onDrop={(e)=> this.onDrop(e)} 
+        src={selectedImg.url} 
+        alt="text"
+      /> : 
+      null;
 
     const display = imgs ? (
       imgs.map(img => (
@@ -143,13 +150,11 @@ class App extends Component {
     return (
       <div className="container">
 
-        <nav className="nav">
-          <ul className="links">
-            <li>Flyer Creator</li>
-            <li>Dbat</li>
-            <li>Hello Matt</li>
-          </ul>
-        </nav>
+        <ul className="links">
+          <li>Flyer Creator</li>
+          <li className="link2">Dbat</li>
+          <li>Hello Matt</li>
+        </ul>
         <div className="flex-img-container">
           {display}
         </div>
@@ -159,28 +164,16 @@ class App extends Component {
         <div className="large-img-container">
           
           <div className="img-text-container">
-            <img src={singleUrl} alt="text"/>
+            {largeImg}
             <div 
-              draggable 
-              className="overlay-text"
-              onDrag={(e)=>this.onDrag(e, this.state.text)} 
-              onDragStart={(e)=> this.onDragStart(e)}
-              onDragEnd={(e) => console.log('end evt: ', e)}
-            >
-              {this.state.text}
-            </div>
-            
-            <div 
-              onDragOver={(e)=>this.onDragOver(e)}
-              onDrop={(e)=> this.onDrop(e)}
+              // onDragOver={(e)=>this.onDragOver(e)}
+              // onDrop={(e)=> this.onDrop(e)}
               style={{backgroundColor: 'red'}}
             >
-              {this.state.draggedText ? (<span className="dragged">this.state.draggedText</span>) : 'Drop here'}
+              {this.state.draggedText ? (<span className="dragged">{this.state.draggedText}</span>) : ''}
             </div>
-            <button onClick={this.moveText}>Move text up</button>
           </div>
 
-          {/* wrap in form */}
 
           <label>Type your text</label><br/>
           <input 
@@ -188,17 +181,29 @@ class App extends Component {
             onChange={this.onInputChange}
             value={this.state.text}
           />
-          <button>Done</button>
-          <h3>You are typing: {this.state.text}</h3>
+          <br/>
+            
+          <button disabled={!this.state.text} className="blue-btn">Done</button>
+
+          <div 
+            draggable 
+            className={selectedImg ? 'overlay-text' : ''}
+            onDrag={(e)=>this.onDrag(e, this.state.text)} 
+            onDragStart={(e)=> this.onDragStart(e)}
+            onDragEnd={(e) => console.log('end evt: ', e)}
+          >
+            {this.state.text}
+          </div>
 
           <label>Upload images</label><br/>
           <input type="file" onChange={this.handleUpload}/>
-          <button onClick={this.onUpload}>Upload</button>
+          <br/>
+          <button  className="blue-btn"onClick={this.onUpload}>Upload</button>
 
           <div className="footer-btn-container">
-            <button>Cancel</button>
-            <button>Print</button>
-            <button>Save</button>
+            <button className="footer-btn blue-btn">Cancel</button>
+            <button className="print-btn">Print</button>
+            <button className="footer-btn blue-btn">Save</button>
           </div>
         </div>
 
