@@ -93,6 +93,16 @@ html, body {
     /* transform: translate(-50%, -50%); */
 }
 
+
+.input-container, .upload-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.large-input {
+    padding: 3.5rem;
+}
+
 label {
     font-size: 1.2rem;
     font-weight: bold;
@@ -108,9 +118,8 @@ label {
     font-weight: bold;
     border-radius: 3.5em;
     padding: 1%;
-    margin: 1%;
+    margin: 2%;
     border: none;
-    width: 15%;
 }
 
 .blue-btn:hover {

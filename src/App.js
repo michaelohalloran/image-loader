@@ -166,8 +166,8 @@ class App extends Component {
           <div className="img-text-container">
             {largeImg}
             <div 
-              // onDragOver={(e)=>this.onDragOver(e)}
-              // onDrop={(e)=> this.onDrop(e)}
+              onDragOver={(e)=>this.onDragOver(e)}
+              onDrop={(e)=> this.onDrop(e)}
               style={{backgroundColor: 'red'}}
             >
               {this.state.draggedText ? (<span className="dragged">{this.state.draggedText}</span>) : ''}
@@ -175,15 +175,16 @@ class App extends Component {
           </div>
 
 
-          <label>Type your text</label><br/>
-          <input 
-            name="text"
-            onChange={this.onInputChange}
-            value={this.state.text}
-          />
-          <br/>
-            
-          <button disabled={!this.state.text} className="blue-btn">Done</button>
+          <div class="input-container">
+            <label>Type your text</label><br/>
+            <input 
+              className="large-input"
+              name="text"
+              onChange={this.onInputChange}
+              value={this.state.text}
+            />
+            <button disabled={!this.state.text} className="blue-btn">Done</button>
+          </div>
 
           <div 
             draggable 
@@ -195,10 +196,11 @@ class App extends Component {
             {this.state.text}
           </div>
 
-          <label>Upload images</label><br/>
-          <input type="file" onChange={this.handleUpload}/>
-          <br/>
-          <button  className="blue-btn"onClick={this.onUpload}>Upload</button>
+          <div class="upload-container">
+            <label>Upload images</label><br/>
+            <input type="file" onChange={this.handleUpload}/>
+            <button  className="blue-btn"onClick={this.onUpload}>Upload</button>
+          </div>
 
           <div className="footer-btn-container">
             <button className="footer-btn blue-btn">Cancel</button>
