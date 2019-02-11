@@ -81,10 +81,11 @@ class App extends Component {
 
     // const leftOffset = window.document.body.clientWidth - e.pageX;
     // console.log('leftOffset', leftOffset);
+    const top = e.clientY - e.target.offsetTop - 77;
     this.setState({
-      textLeft: '20%',
+      textLeft: `${e.clientX - e.target.offsetLeft - 656}px`,
       // textTop: `${e.screenY}`
-      textTop: '140px'
+      textTop: `${top}px`,
     }, ()=> {
       this.textRef.current.style.backgroundColor = 'red';
       this.textRef.current.style.top = this.state.textTop;
@@ -97,8 +98,8 @@ class App extends Component {
     // this.getSpanPosition(this.textRef);
     // const domNode = ReactDOM.findDOMNode(this.textRef);
     // domNode.getBoundingClientRect();
-    console.log('offset: ', e.clientY - e.target.offsetTop);
-    console.log('left offset: ', e.clientX - e.target.offsetLeft);
+    console.log('top offset: ', e.clientY - e.target.offsetTop - 77);
+    console.log('left offset: ', e.clientX - e.target.offsetLeft - 656);
   }
 
   getSpanPosition = e => {
