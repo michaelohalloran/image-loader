@@ -12,7 +12,9 @@ class App extends Component {
       text: '',
       selectedImg: null,
       textLeft: '',
-      textTop: ''
+      textTop: '',
+      singleImg: '',
+      uploadedFile: null,
     }
 
     this.textRef = React.createRef();
@@ -48,9 +50,22 @@ class App extends Component {
     //   });
   }
 
+  // testImg = () => {
+  //   console.log('hit testImg');
+  //   axios.get('https://source.unsplash.com/random/150x150')
+  //     .then(res => this.setState({singleImg: res.request.responseUrl}))
+  //     console.log(this.state.singleImg);
+  //     // .then(()=> this.setState({
+  //     //     imgs: [...this.state.imgs, this.state.singleImg]
+  //     // })
+    
+  //     // .then(res => console.log(res.request.responseUrl));
+  //   }
+
   componentDidMount() {
     //make API call, load images, also set default (as callback to loadImages, after setting state)
     this.loadImages();
+    // this.testImg();
   }
 
   setDefaultLargeImg = () => {
@@ -142,10 +157,16 @@ class App extends Component {
 
   handleUpload = (e) => {
     console.log(e.target.files[0]);
+    this.setState({uploadedFile: e.target.files[0]});
   }
 
   onUpload = () => {
     console.log('hit upload');
+    //axios request to Firebase or MongoDB
+    const fd = new FormData();
+    fd.append('image', this.state.uploadedFile, this.state.uploadedFile.name);
+    // axios.post(`${URLGOESHERE}`, fd)
+    //   .then(res => console.log('FB response: ', res));
   }
 
   render() {
@@ -162,6 +183,10 @@ class App extends Component {
       null;
 
     // const textPosition = {left: '90%', top: '10%'};
+
+    // const testImg = singleImg ? <img src={`${singleImg}`} alt="text"/> : <h3>Loading...</h3>;
+    // const testImg = <img src={'https://source.unsplash.com/random/150x150'} alt="text"/>;
+
 
     const userText = <span 
       ref={this.textRef} 
@@ -223,6 +248,7 @@ class App extends Component {
               value={this.state.text}
             />
             <button disabled={!this.state.text} className="blue-btn">Done</button>
+            {/* {testImg} */}
           </div>
 
           {/* <div 
