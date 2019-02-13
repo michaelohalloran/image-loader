@@ -14,7 +14,8 @@ class App extends Component {
       textLeft: '',
       textTop: '',
       singleImg: '',
-      uploadedFile: null,
+      uploadedFile: '',
+      uploadUrl: '',
     }
 
     this.textRef = React.createRef();
@@ -156,22 +157,37 @@ class App extends Component {
   }
 
   handleUpload = (e) => {
+    e.preventDefault();
     console.log(e.target.files[0]);
-    this.setState({uploadedFile: e.target.files[0]});
+    let reader = new FileReader();
+    let file = e.target.files[0];
+    reader.onloadend = () => {
+      this.setState({
+        uploadedFile: file,
+        uploadUrl: reader.result
+      });
+    }
+
+    reader.readAsDataURL(file);
   }
 
-  onUpload = () => {
+  onUpload = e => {
     console.log('hit upload');
+    e.preventDefault();
+    console.log('file: ', this.state.uploadedFile, this.state.uploadUrl);
+
+
+    //BACKEND METHOD:
     //axios request to Firebase or MongoDB
-    const fd = new FormData();
-    fd.append('image', this.state.uploadedFile, this.state.uploadedFile.name);
+    // const fd = new FormData();
+    // fd.append('image', this.state.uploadedFile, this.state.uploadedFile.name);
     // axios.post(`${URLGOESHERE}`, fd)
     //   .then(res => console.log('FB response: ', res));
   }
 
   render() {
 
-    const {imgs, selectedImg, text} = this.state;
+    const {imgs, selectedImg, text, uploadUrl} = this.state;
     console.log('imgs: ', imgs);
 
     const largeImg = (selectedImg) ? 
@@ -186,7 +202,7 @@ class App extends Component {
 
     // const testImg = singleImg ? <img src={`${singleImg}`} alt="text"/> : <h3>Loading...</h3>;
     // const testImg = <img src={'https://source.unsplash.com/random/150x150'} alt="text"/>;
-
+    const testImg = uploadUrl ? <img onClick={this.setSelectedImg} src={uploadUrl} alt="img"/> : <h6>Pick an image</h6>;
 
     const userText = <span 
       ref={this.textRef} 
@@ -262,9 +278,13 @@ class App extends Component {
           </div> */}
 
           <div className="upload-container">
-            <label>Upload images</label><br/>
-            <input type="file" onChange={this.handleUpload}/>
-            <button  className="blue-btn"onClick={this.onUpload}>Upload</button>
+            <form onSubmit={this.onUpload}>
+              <label>Upload images</label><br/>
+              <input type="file" onChange={this.handleUpload}/>
+              <button  className="blue-btn"onClick={this.onUpload}>Upload</button>
+            </form>
+
+            {testImg}
           </div>
 
           <div className="footer-btn-container">
