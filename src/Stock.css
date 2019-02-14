@@ -1,0 +1,31 @@
+.stock-container {
+    display: flex;
+    grid-column: 1/4;
+    grid-row: 10/15;
+    flex-direction: column;
+    background-color: mediumblue;
+    /* grid-template-columns: repeat(5, 1fr); */
+    height: 100%;
+    /* grid-gap: 1%; */
+    /* grid-template-rows: repeat(3, 1fr); */
+}
+
+.stock-header {
+    grid-row: 1/2;
+}
+
+.stock-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    background-color: orange;
+    grid-gap: 1%;
+    height: 100%;
+    grid-template-rows: repeat(3, 1fr);
+}
+
+.stock-box {
+    background-color: gray;
+    border: 1px solid black;
+    margin: 1%;
+    /* width: 32%; */
+}

@@ -7,7 +7,7 @@ html, body {
 .container {
     display: grid;
     grid-template-columns: repeat(6,1fr);
-    grid-template-rows: repeat(9,1fr);
+    grid-template-rows: repeat(14,1fr);
 }
 
 /* *************************************** */
@@ -32,31 +32,49 @@ html, body {
 
 .links > li:nth-child(1) {margin-right: auto;}
 
+.link-bold {
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
 .links > li {margin: 1%;}
 
-.nav-hr {
+/* .nav-hr {
     width: 1%;
     color: gray;
     height: 100%;
-}
+} */
 
 /* *************************************** */
 /* LEFT SIDE */
 /* *************************************** */
 
 .flex-img-container {
-    display: flex;
-    flex-wrap: wrap;
+    /* display: flex; */
+    /* flex-wrap: wrap; */
     /* width: 60%; */
     grid-column: 1/4;
     grid-row: 2/10;
-    background: lightsalmon;
+    /* background: lightsalmon; */
+    margin: 5%;
 
+}
+
+.header {
+    text-align: center;
 }
 
 .flex-item {
     width: 31%;
     margin: 1%;
+     height: auto; /*to match width, make it square */
+}
+
+.flex-item:hover {
+    transform: scale(1.1);
+    border: 1px solid black;
+    transition: transform 1s ease;
 }
 
 /* hr {
@@ -71,13 +89,13 @@ html, body {
 .large-img-container {
     /* width: 40%; */
     grid-column: 4/7;
-    background: lightgoldenrodyellow;
+    /* background: lightgoldenrodyellow; */
     grid-row: 2/10;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-
+    border-left: 1.5px solid lightgray;
 }
 
 .img-text-container {
@@ -87,7 +105,7 @@ html, body {
 .typed-text {
     position: absolute;
     left: 50%;
-    top: 20%;
+    top: 40%;
     transform: translate(-50%, -50%);
     color: white;
     font-weight: bold;
@@ -119,13 +137,20 @@ label {
     font-weight: bold;
 }
 
+/* ************************ */
+/* BUTTONS */
+/* ************************ */
+
+button {
+    padding: 1% 4%;
+}
 
 .blue-btn {
     background-color: #2170ef;
     color: white;
     font-weight: bold;
     border-radius: 3.5em;
-    padding: 1%;
+    /* padding: 1%; */
     margin: 2%;
     border: none;
 }
@@ -151,7 +176,7 @@ label {
     color: white;
     font-weight: bold;
     border-radius: 3.5em;
-    padding: 1%;
+    /* padding: 1%; */
     margin: 2%;
     border: none;
     /* width: 15%; */
@@ -161,4 +186,21 @@ label {
     color: rgb(31, 151, 71);
     background-color: white;
     cursor: pointer;
+}
+
+
+@media (max-width: 675px) {
+    .large-img-container, .flex-img-container {
+        /* display: block; */
+        grid-column: 1/7;
+    }
+
+    .large-img-container {
+        grid-row: 6/10;
+    }
+
+    .flex-img-container {
+        grid-row: 2/6;
+        border-bottom: 2px solid lightgray;
+    }
 }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
+import Stock from './Stock';
 
 class App extends Component {
 
@@ -97,9 +98,17 @@ class App extends Component {
 
     // const leftOffset = window.document.body.clientWidth - e.pageX;
     // console.log('leftOffset', leftOffset);
-    const top = e.clientY - e.target.offsetTop - 77;
+
+    //**********NEED TO KNOW HOW FAR FROM ABSOLUTE TOP/LEFT THE IMG BOX IS, TO REPLACE HARD-CODED 39 AND 656 */
+    const top = e.clientY - e.target.offsetTop + 58; //rougly distance from h3 to top of img
+    //look in devtools to see height of whole container and of each sub-element, dynamically calculate these using refs?
+    //NOTE: see notes in OneNote
+    const left = e.clientX - e.target.offsetLeft - 670;
+    console.log(`top: ${top} is clientY ${e.clientY} - target offsetTop ${e.target.offsetTop}`);
+    console.log(`left: ${top} is clientX ${e.clientX} - target offsetLeft ${e.target.offsetLeft}`);
+
     this.setState({
-      textLeft: `${e.clientX - e.target.offsetLeft - 656}px`,
+      textLeft: `${left}px`,
       // textTop: `${e.screenY}`
       textTop: `${top}px`,
     }, ()=> {
@@ -237,19 +246,24 @@ class App extends Component {
       <div className="container">
 
         <ul className="links">
-          <li>Flyer Creator</li>
-          <li className="link2">Dbat</li>
+          <li className="link-bold">Flyer Creator</li>
+          <li className="link-bold link2">Dbat</li>
           <li>Hello Matt</li>
         </ul>
+        
         <div className="flex-img-container">
+          <h3 className="header">Choose your template</h3>
           {display}
+          
         </div>
+        <Stock />
 
         <hr />
 
         <div className="large-img-container">
-          
           <div ref={this.textContainer} className="img-text-container">
+            <h3 className="header">Customize your template</h3>
+            <p>Click on an area to add text.</p>
             {largeImg}
             {userText}
           </div>
