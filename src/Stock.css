@@ -1,17 +1,18 @@
 .stock-container {
-    display: flex;
+    /* display: flex; */
+    /* flex-direction: column; */
+    display: grid;
     grid-column: 1/4;
     grid-row: 10/15;
-    flex-direction: column;
     background-color: mediumblue;
     /* grid-template-columns: repeat(5, 1fr); */
-    height: 100%;
+    /* height: 100%; */
     /* grid-gap: 1%; */
-    /* grid-template-rows: repeat(3, 1fr); */
+    grid-template-rows: auto repeat(2, 1fr);
 }
 
 .stock-header {
-    grid-row: 1/2;
+    /* grid-row: 1/2; */
 }
 
 .stock-grid {
@@ -19,8 +20,10 @@
     grid-template-columns: repeat(5, 1fr);
     background-color: orange;
     grid-gap: 1%;
-    height: 100%;
-    grid-template-rows: repeat(3, 1fr);
+    /* height: 100%; */
+    /* grid-template-rows: repeat(3, 1fr); */
+    grid-row: auto;
+    margin: 2%;
 }
 
 .stock-box {

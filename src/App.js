@@ -17,10 +17,11 @@ class App extends Component {
       singleImg: '',
       uploadedFile: '',
       uploadUrl: '',
+      // testImg2: ''
     }
 
-    this.textRef = React.createRef();
-    this.textContainer = React.createRef();
+    this.spanRef = React.createRef();
+    this.spanContainer = React.createRef();
 
   }
   
@@ -28,15 +29,55 @@ class App extends Component {
   //collection ids: https://unsplash.com/collections
   loadImages = () => {
     // axios.get('https://source.unsplash.com/collection/1163637/480x480')
-    let imgs = Array(9).fill(0).map(el => {
-      el = {id: Math.random().toFixed(5), url: 'https://source.unsplash.com/collection/1163637/200x200', selected: false};
-      return el;
-    });
-    this.setState({
-      imgs
-    }, ()=> {
-      this.setDefaultLargeImg();
-    });
+    // let imgs = Array(9).fill(0).map(el => {
+    //   el = {id: Math.random().toFixed(5), url: 'https://source.unsplash.com/collection/1163637/200x200', selected: false};
+    //   return el;
+    // });
+    // this.setState({
+    //   imgs
+    // }, ()=> {
+    //   this.setDefaultLargeImg();
+    // });
+
+    //ALTERNATIVE:
+    let imgs = Array(9).fill(0).map(img => {
+      //hit the endpoint (and get new random img) for each time through the loop
+      axios.get('http://www.splashbase.co/api/v1/images/random')
+        .then(res => {
+          img = {
+            id: res.data.id,
+            url: res.data.url,
+            selected: false
+          }
+          return img;
+        })
+        .then(img => {
+          this.setState({
+            imgs: [...this.state.imgs, img]
+          }, ()=> {
+            this.setDefaultLargeImg();
+          })
+        })
+      })
+    // axios.get('http://www.splashbase.co/api/v1/images/random')
+    //   .then(res => {
+    //     console.log('res: ', res.data);
+    //     return res.data.map(item => {
+    //       item = {
+    //         id: res.data.id,
+    //         url: res.data.url,
+    //         selected: false
+    //       }
+    //       return item;
+    //     })
+    //   })
+    //   .then(imgs => {
+    //     this.setState({
+    //       imgs,
+    //     }, ()=> {
+    //       this.setDefaultLargeImg();
+    //     });
+    //   });
 
     // axios.get('https://picsum.photos/list')
     //   .then(res => {
@@ -64,10 +105,18 @@ class App extends Component {
   //     // .then(res => console.log(res.request.responseUrl));
   //   }
 
+  // testImg2 = () => {
+  //   axios.get('http://www.splashbase.co/api/v1/images/random')
+  //     .then(res => this.setState({
+  //       testImg2: res.data.url,
+  //     }));
+  // }
+
   componentDidMount() {
     //make API call, load images, also set default (as callback to loadImages, after setting state)
     this.loadImages();
     // this.testImg();
+    // this.testImg2();
   }
 
   setDefaultLargeImg = () => {
@@ -87,7 +136,7 @@ class App extends Component {
     // console.log('container target: ', e.target);
     // console.log('container current target: ', e.currentTarget);
 
-    console.log('container clientWidth', this.textContainer.current.clientWidth);
+    console.log('container clientWidth', this.spanContainer.current.clientWidth);
 
     // console.log('window width: ', window.document.body.clientWidth);
     // console.log('set position evt', e.pageX, e.pageY);
@@ -112,16 +161,16 @@ class App extends Component {
       // textTop: `${e.screenY}`
       textTop: `${top}px`,
     }, ()=> {
-      this.textRef.current.style.backgroundColor = 'red';
-      this.textRef.current.style.top = this.state.textTop;
-      this.textRef.current.style.left = this.state.textLeft;
+      this.spanRef.current.style.backgroundColor = 'red';
+      this.spanRef.current.style.top = this.state.textTop;
+      this.spanRef.current.style.left = this.state.textLeft;
     });
-    console.log('this.textRef: ', this.textRef);
-    console.log('textRef clientWidth', this.textRef.current.clientWidth);
-    // console.log('this.textRef style: ', this.textRef.current.style);
-    // console.log('this.textRef x: ', this.textRef.current.style.x);
-    // this.getSpanPosition(this.textRef);
-    // const domNode = ReactDOM.findDOMNode(this.textRef);
+    console.log('this.spanRef: ', this.spanRef);
+    console.log('spanRef clientWidth', this.spanRef.current.clientWidth);
+    // console.log('this.spanRef style: ', this.spanRef.current.style);
+    // console.log('this.spanRef x: ', this.spanRef.current.style.x);
+    // this.getSpanPosition(this.spanRef);
+    // const domNode = ReactDOM.findDOMNode(this.spanRef);
     // domNode.getBoundingClientRect();
     console.log('top offset: ', e.clientY - e.target.offsetTop - 77);
     console.log('left offset: ', e.clientX - e.target.offsetLeft - 656);
@@ -201,7 +250,8 @@ class App extends Component {
 
     const largeImg = (selectedImg) ? 
       <img 
-        src={selectedImg.url} 
+        src={selectedImg.url}
+        style={{width: '400px', height: '300px'}} 
         alt="text"
         onClick={this.setImgPosition}
       /> : 
@@ -211,10 +261,11 @@ class App extends Component {
 
     // const testImg = singleImg ? <img src={`${singleImg}`} alt="text"/> : <h3>Loading...</h3>;
     // const testImg = <img src={'https://source.unsplash.com/random/150x150'} alt="text"/>;
-    const testImg = uploadUrl ? <img onClick={this.setSelectedImg} src={uploadUrl} alt="img"/> : <h6>Pick an image</h6>;
+    // const testImg2 = <img src={this.state.testImg2} alt="testImg2"/>;
+    // const testImg = uploadUrl ? <img onClick={this.setSelectedImg} src={uploadUrl} alt="img"/> : <h6>Pick an image</h6>;
 
     const userText = <span 
-      ref={this.textRef} 
+      ref={this.spanRef} 
       onClick={this.getSpanPosition} 
       className="typed-text"
       // style={{textPosition}}
@@ -228,7 +279,8 @@ class App extends Component {
         <img 
           className="flex-item" 
           key={img.id} 
-          src={`${img.url}`} 
+          src={`${img.url}`}
+          style={{width: '150px', height: '150px'}} 
           alt={img.id}
           onClick={()=> this.displayLargeImg(img)}
         />
@@ -258,10 +310,12 @@ class App extends Component {
         </div>
         <Stock />
 
+        {/* {testImg2} */}
+
         <hr />
 
         <div className="large-img-container">
-          <div ref={this.textContainer} className="img-text-container">
+          <div ref={this.spanContainer} className="img-text-container">
             <h3 className="header">Customize your template</h3>
             <p>Click on an area to add text.</p>
             {largeImg}
@@ -298,7 +352,7 @@ class App extends Component {
               <button  className="blue-btn"onClick={this.onUpload}>Upload</button>
             </form>
 
-            {testImg}
+            {/* {testImg} */}
           </div>
 
           <div className="footer-btn-container">
