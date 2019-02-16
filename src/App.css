@@ -6,6 +6,10 @@ body {
 	height: 100%;
 }
 
+body {
+	position: relative;
+}
+
 .container {
 	display: grid;
 	grid-template-columns: repeat(6, 1fr);
@@ -109,13 +113,13 @@ body {
 }
 
 .img-text-container {
-	position: relative;
+	/* position: relative; */
 }
 
 .typed-text {
 	position: absolute;
-	left: 50%;
-	top: 40%;
+	left: 75%;
+	top: 25%;
 	transform: translate(-50%, -50%);
 	color: white;
 	font-weight: bold;
@@ -200,23 +204,78 @@ button {
 	cursor: pointer;
 }
 
-@media (max-width: 900px) {
+/* ********************************* */
+/* STOCK CONTAINER */
+/* ********************************* */
+
+.stock-container {
+	/* display: flex; */
+	/* flex-direction: column; */
+	display: grid;
+	grid-column: 1/span 3;
+	/* grid-row: 4; */
+	/* background-color: mediumblue; */
+	grid-template-columns: repeat(5, 1fr);
+	height: 100%;
+	grid-gap: 1%;
+	grid-template-rows: repeat(3, 1fr);
+	margin: 4%;
+	margin-bottom: 15%;
+}
+
+/* ********************************************** */
+/* MEDIA QUERIES */
+/* ********************************************** */
+
+@media (max-width: 1050px) {
 	.container {
-		grid-auto-rows: repeat(20, 1fr);
+		/* grid-template-rows: auto; */
+		grid-template-areas: "header header header header header header" "grid grid grid grid grid grid"
+			"large large large large large large" "stock stock stock stock stock stock";
+	}
+
+	.links {
+		grid-area: header;
+		font-size: medium;
 	}
 
 	.large-img-container,
-	.flex-img-container {
+	.grid-img-container,
+	.stock-container {
 		/* display: block; */
-		grid-column: 1/span 6;
+		/* grid-column: 1/span 6; */
+		border-bottom: 2px solid lightgray;
+		height: 100%;
 	}
 
 	.large-img-container {
-		grid-row: 8/span 6;
+		/* grid-row: 8/span 6; */
+		grid-area: large;
 	}
 
 	.grid-img-container {
-		grid-row: 2/span 6;
-		border-bottom: 2px solid lightgray;
+		/* grid-row: 2/span 6; */
+		grid-area: grid;
+	}
+
+	.stock-container {
+		grid-area: stock;
+		grid-column: 1/span 6;
+	}
+
+	.large-img-container,
+	.stock-container {
+		margin-top: 10%;
+	}
+}
+
+@media (max-width: 550px) {
+	.grid-item > img {
+		width: 100px;
+		height: 100px;
+	}
+
+	.container {
+		font-size: small;
 	}
 }
