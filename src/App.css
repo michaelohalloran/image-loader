@@ -84,7 +84,7 @@ body {
 	height: auto; /*to match width, make it square */
 }
 
-.flex-item:hover {
+.grid-item:hover {
 	transform: scale(1.1);
 	border: 1px solid black;
 	cursor: pointer;
@@ -173,6 +173,7 @@ button {
 	color: #2170ef;
 	background-color: white;
 	cursor: pointer;
+	border: 1px solid black;
 	transform: scale(1.1);
 	transition: transform 1s;
 }
@@ -202,6 +203,67 @@ button {
 	color: rgb(31, 151, 71);
 	background-color: white;
 	cursor: pointer;
+}
+
+/* ********************************* */
+/* ANIMATIONS */
+/* ********************************* */
+
+.links {
+	animation: slideFromTop 2s ease;
+}
+.grid-img-container {
+	animation: slideFromLeft 1s ease 2s;
+}
+.large-img-container {
+	animation: slideFromRight 1s ease 3s;
+}
+.stock-container {
+}
+
+@keyframes slideFromLeft {
+	0% {
+		opacity: 0;
+		tranform: translateX(-1000px);
+	}
+	50% {
+		opacity: 0.5;
+		tranform: translateX(0);
+	}
+	100% {
+		opacity: ;
+		tranform: translateX(0);
+	}
+}
+
+@keyframes slideFromRight {
+	0% {
+		opacity: 0;
+		tranform: translateX(1000px);
+	}
+	50% {
+		opacity: 0.5;
+		tranform: translateX(0);
+	}
+	100% {
+		opacity: ;
+		tranform: translateX(0);
+	}
+}
+
+@keyframes slideFromTop {
+	0% {
+		opacity: 0;
+		tranform: translateY(1000px);
+	}
+	50% {
+		opacity: 0.5;
+		tranform: translateY(0);
+	}
+	100% {
+		opacity: ;
+		tranform: translateY(0);
+	}
 }
 
 /* ********************************* */
