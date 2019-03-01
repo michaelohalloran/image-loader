@@ -25,22 +25,22 @@ class App extends Component {
 
 	// https://medium.com/quick-code/how-to-quickly-generate-a-random-gallery-of-images-from-an-unsplash-collection-in-javascript-4ddb2a6a4faf
 	//collection ids: https://unsplash.com/collections
-	loadImages = () => {
-		let imgs = Array(9).fill(0).map((img) => {
+	loadImages = async () => {
+		let imgs = await Array(9).fill(0).map((img) => {
 			axios.get('http://www.splashbase.co/api/v1/images/random').then((res) => {
 				let img = {
 					id: res.data.id,
 					url: res.data.url,
 					selected: false
 				};
-				this.setState(
-					{
-						imgs: [ ...this.state.imgs, img ]
-					},
-					() => this.setDefaultLargeImg()
-				);
 			});
 		});
+		this.setState(
+			{
+				imgs: [ ...this.state.imgs, imgs ]
+			}
+			// () => this.setDefaultLargeImg()
+		);
 	};
 
 	// testImg = () => {
