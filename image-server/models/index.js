@@ -7,4 +7,5 @@ mongoose.connect('mongodb://localhost/flyers', {
 });
 
 module.exports.User = require('./user');
+module.exports.Image = require('./upload');
 //module.exports.pDF = require('./pdf');
