@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import './DragDrop.css';
+import React, { Component } from "react";
+import "./DragDrop.css";
 
 export default class DragDrop extends Component {
 	constructor() {
@@ -14,11 +14,11 @@ export default class DragDrop extends Component {
 	}
 
 	onDragStart = (e, img) => {
-		console.log('dragstart evt: ', e.target, this.imgRef.current.src); //this is the img url
-		console.log('dragstart transfer: ', e.dataTransfer);
+		console.log("dragstart evt: ", e.target, this.imgRef.current.src); //this is the img url
+		console.log("dragstart transfer: ", e.dataTransfer);
 		let imgUrl = e.target.src;
-		e.dataTransfer.setData('data', imgUrl);
-		console.log('target id', e.target.id);
+		e.dataTransfer.setData("data", imgUrl);
+		console.log("target id", e.target.id);
 	};
 
 	onDragOver = (e) => {
@@ -27,10 +27,10 @@ export default class DragDrop extends Component {
 	};
 
 	onDrop = (e) => {
-		console.log('drop evt: ', e);
-		console.log('drop transfer: ', e.dataTransfer);
-		let src = e.dataTransfer.getData('data');
-		console.log('src: ', src);
+		console.log("drop evt: ", e);
+		console.log("drop transfer: ", e.dataTransfer);
+		let src = e.dataTransfer.getData("data");
+		console.log("src: ", src);
 		this.setState({
 			dropEvt: true,
 			imgSrc: src

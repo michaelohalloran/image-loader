@@ -1,0 +1,52 @@
+body,
+html {
+	padding: 0;
+	margin: 0;
+	position: relative;
+}
+
+.drag-container {
+	text-align: center;
+	margin: 5%;
+	border: 1px solid lightblue;
+	padding: 4%;
+	position: relative;
+}
+
+.drag-text {
+	border: 1px solid lightcoral;
+	/* width: 77%; */
+	margin: 2% auto;
+}
+
+.img-drop {
+	/* position: relative; */
+}
+
+.dropped-text {
+	background: red;
+	position: absolute;
+}
+
+/* ************************** */
+
+/* .dragzone {
+	background: lightseagreen;
+	border: 1px solid black;
+	height: 400px;
+	width: 70%;
+	margin: 2%;
+} */
+
+img {
+	width: 200px;
+	height: 200px;
+}
+
+/* .dropzone {
+	background: lightcoral;
+	border: 1px solid black;
+	height: 400px;
+	width: 70%;
+	margin: 2%;
+} */
